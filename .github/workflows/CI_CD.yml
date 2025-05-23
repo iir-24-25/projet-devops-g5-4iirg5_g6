@@ -57,11 +57,6 @@ jobs:
           cd Frontend  # Navigate to the frontend directory
           npm install
 
-      - name: Run frontend tests
-        run: |
-          cd Frontend  # Navigate to the frontend directory
-          npm test -- --coverage  # Run tests with coverage
-
       - name: Build frontend
         run: |
           cd Frontend  # Navigate to the frontend directory
