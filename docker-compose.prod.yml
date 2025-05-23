@@ -17,9 +17,9 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ROOT_PASSWORD: 
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: devoir_db
+      MYSQL_DATABASE: quizdb
     ports:
       - "3306:3306"
 
