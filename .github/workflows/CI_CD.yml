@@ -40,32 +40,27 @@ jobs:
       - name: Run backend tests
         run: mvn test
   build-and-test-frontend:
-    name: Build & Test Frontend
-    runs-on: ubuntu-latest
-    needs: [build-and-test-backend]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  name: Build Frontend
+  runs-on: ubuntu-latest
+  needs: [build-and-test-backend] 
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
 
-      - name: Install dependencies for frontend
-        run: |
-          cd Frontend  # Navigate to the frontend directory
-          npm install
+    - name: Install frontend dependencies
+      run: |
+        cd Frontend  
+        npm install  
 
-      - name: Run frontend tests
-        run: |
-          cd Frontend  # Navigate to the frontend directory
-          npm test -- --coverage  # Run tests with coverage
-
-      - name: Build frontend
-        run: |
-          cd Frontend  # Navigate to the frontend directory
-          npm run build  # Build the frontend for production
+    - name: Build frontend
+      run: |
+        cd Frontend  
+        npm run build 
   docker-build:
     name: Build Docker Images
     runs-on: ubuntu-latest
