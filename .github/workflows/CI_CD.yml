@@ -58,8 +58,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Deploy using Docker Compose
-        run: |
-          docker compose -f docker-compose.prod.yml up -d
+        run: docker-compose -f docker-compose.prod.yml up -d
+
 
       - name: Print deployment status
         run: docker ps
