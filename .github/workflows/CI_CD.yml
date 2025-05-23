@@ -52,6 +52,7 @@ jobs:
         with:
           node-version: '16'
 
+
       - name: Install dependencies for frontend
         run: |
           cd Frontend  # Navigate to the frontend directory
