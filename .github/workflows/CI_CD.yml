@@ -14,8 +14,8 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: your_secure_password  # Set a strong password for MySQL
-          MYSQL_ALLOW_EMPTY_PASSWORD: "no"          # Disable empty passwords for security
+          MYSQL_ROOT_PASSWORD: 
+          MYSQL_ALLOW_EMPTY_PASSWORD: "no" 
           MYSQL_DATABASE: devoir_db
           MYSQL_ROOT_HOST: '%'
         ports:
@@ -39,34 +39,32 @@ jobs:
 
       - name: Run backend tests
         run: mvn test
-
   build-and-test-frontend:
-    name: Build Frontend
-    runs-on: ubuntu-latest
-    needs: [build-and-test-backend]  # Ensures frontend builds after backend tests
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  name: Build Frontend
+  runs-on: ubuntu-latest
+  needs: [build-and-test-backend] 
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'  
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  
 
-      - name: Install frontend dependencies
-        run: |
-          cd Frontend 
-          npm install 
+    - name: Install frontend dependencies
+      run: |
+        cd Frontend 
+        npm install 
 
-      - name: Build frontend
-        run: |
-          cd Frontend  
-          npm run build
-
+    - name: Build frontend
+      run: |
+        cd Frontend  
+        npm run build  
   docker-build:
     name: Build Docker Images
     runs-on: ubuntu-latest
-    needs: [build-and-test-frontend]  # Ensures Docker image is built after frontend build
+    needs: [build-and-test-backend]
     steps:
       - uses: actions/checkout@v3
 
@@ -76,7 +74,7 @@ jobs:
   deploy:
     name: Deploy to Production
     runs-on: ubuntu-latest
-    needs: docker-build  # Ensures deployment happens after Docker image build
+    needs: docker-build
     steps:
       - uses: actions/checkout@v3
 
