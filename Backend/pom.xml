@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.24</version>  <!-- Lombok version added -->
+			<version>1.18.24</version>  <!-- Correct version added -->
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -84,6 +84,7 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>1.18.24</version>  <!-- Version added -->
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
@@ -111,3 +112,4 @@
 		</plugins>
 	</build>
 </project>
+
