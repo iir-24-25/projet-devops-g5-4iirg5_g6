@@ -19,7 +19,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ""
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: quizdb
+      MYSQL_DATABASE: devoir_db
     ports:
       - "3306:3306"
 
