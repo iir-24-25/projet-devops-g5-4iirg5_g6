@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
+  # Backend Build & Test
   build-and-test-backend:
     name: Build & Test Backend
     runs-on: ubuntu-latest
@@ -14,8 +15,8 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: 
-          MYSQL_ALLOW_EMPTY_PASSWORD: "no" 
+          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_ALLOW_EMPTY_PASSWORD: "no"
           MYSQL_DATABASE: devoir_db
           MYSQL_ROOT_HOST: '%'
         ports:
@@ -40,6 +41,7 @@ jobs:
       - name: Run backend tests
         run: mvn test
 
+  # Docker Build (Backend & Frontend)
   docker-build:
     name: Build Docker Images
     runs-on: ubuntu-latest
@@ -47,9 +49,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # Build Backend Docker image
       - name: Build backend Docker image
         run: docker build -t myapp-backend:latest ./Backend
 
+      # Build Frontend Docker image
+      - name: Build frontend Docker image
+        run: docker build -t myapp-frontend:latest ./frontend
+
+  # Deploy to Production
   deploy:
     name: Deploy to Production
     runs-on: ubuntu-latest
@@ -64,8 +72,10 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version  # Verify installation
 
+      # Deploy using Docker Compose
       - name: Deploy using Docker Compose
         run: docker-compose -f docker-compose.prod.yml up -d
 
+      # Print deployment status
       - name: Print deployment status
         run: docker ps

@@ -1,21 +1,29 @@
-# Set the base image to Node.js
-FROM node:16
+# Stage 1: Build the React App with Vite
+FROM node:16 AS build
 
+# Set the working directory
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package.json and package-lock.json (or yarn.lock) for dependency installation
+COPY frontend/package.json frontend/package-lock.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the app's files
-COPY . .
+COPY frontend/ ./
 
-# Build the React app
+# Build the app using Vite
 RUN npm run build
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Stage 2: Serve the app using Nginx
+FROM nginx:alpine
 
-# Run the app
-CMD ["npm", "start"]
+# Copy the built app from the first stage
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port 80 to access the app
+EXPOSE 80
+
+# Start Nginx to serve the app
+CMD ["nginx", "-g", "daemon off;"]
