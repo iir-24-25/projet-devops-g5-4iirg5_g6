@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^1.9.0",
+    "crypto": "npm:crypto-browserify",
     "framer-motion": "^12.7.4",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.344.0",
@@ -24,6 +25,7 @@
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/coverage-v8": "^3.1.4",
     "autoprefixer": "^10.4.18",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
