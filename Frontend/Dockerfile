@@ -4,17 +4,14 @@ FROM node:16 AS build
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json for dependencies
-COPY package.json package-lock.json ./
-
-# Set NODE_ENV to production to avoid installing unnecessary dependencies
-ENV NODE_ENV=production
+# Copy package.json and package-lock.json (or yarn.lock) for dependencies
+COPY Frontend/package.json Frontend/package-lock.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the app's files
-COPY . ./
+COPY Frontend/ ./
 
 # Build the app using Vite
 RUN npm run build
