@@ -5,13 +5,13 @@ FROM node:16 AS build
 WORKDIR /app
 
 # Copy package.json and package-lock.json (or yarn.lock) for dependency installation
-COPY frontend/package.json frontend/package-lock.json ./
+COPY Frontend/package.json Frontend/package-lock.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the app's files
-COPY frontend/ ./
+COPY Frontend/ ./
 
 # Build the app using Vite
 RUN npm run build
