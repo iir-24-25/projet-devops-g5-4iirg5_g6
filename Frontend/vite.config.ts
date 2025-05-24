@@ -1,25 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import NodePolyfillPlugin from 'vite-plugin-node-polyfills'; // Import the polyfill plugin
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), NodePolyfillPlugin()],
+  plugins: [react(), nodePolyfills()],
   optimizeDeps: {
     exclude: ['lucide-react'],
-  },
-  build: {
-    rollupOptions: {
-      plugins: [
-        {
-          name: 'polyfill-crypto',
-          resolveId(source) {
-            if (source === 'crypto') {
-              return this.resolve('crypto-browserify');
-            }
-          },
-        },
-      ],
-    },
   },
 });
