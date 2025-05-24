@@ -11,7 +11,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 # Copy the rest of the frontend files into the container
-COPY Frontend/ ./  
+COPY ./ ..
 
 # Build the app using Vite
 RUN npm run build
