@@ -1,17 +1,17 @@
 # Stage 1: Build the React app with Vite
-FROM node:16 AS build
+FROM node:18 AS build
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the package.json and package-lock.json for the frontend
-COPY package.json package-lock.json ./ 
+# Copy package.json and package-lock.json for dependencies
+COPY package.json package-lock.json ./
 
-# Install dependencies for the frontend
+# Install dependencies
 RUN npm install
 
-# Copy the rest of the frontend files into the container
-COPY ./ ..
+# Copy the rest of the app's files
+COPY . ./
 
 # Build the app using Vite
 RUN npm run build
@@ -19,10 +19,10 @@ RUN npm run build
 # Stage 2: Serve the app using Nginx
 FROM nginx:alpine
 
-# Copy the built app from the build stage into Nginx’s HTML directory
+# Copy the built app from the first stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose port 80 to allow access to the frontend app
+# Expose port 80 to access the app
 EXPOSE 80
 
 # Start Nginx to serve the app
