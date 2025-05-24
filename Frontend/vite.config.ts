@@ -1,13 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import NodePolyfillPlugin from 'vite-plugin-node-polyfills'; // Import the polyfill plugin
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  define: {
-    'process.env': {},
-    global: 'globalThis', // This helps with issues in environments like Node.js
-  },
+  plugins: [react(), NodePolyfillPlugin()],
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
