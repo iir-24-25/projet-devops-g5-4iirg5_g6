@@ -7,11 +7,14 @@ WORKDIR /app
 # Copy package.json and package-lock.json for dependencies
 COPY package.json package-lock.json ./
 
+# Set NODE_ENV to production to avoid installing unnecessary dependencies
+ENV NODE_ENV=production
+
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the app's files
-COPY ./ ./
+COPY . ./
 
 # Build the app using Vite
 RUN npm run build
